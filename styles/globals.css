@@ -13,4 +13,5 @@ a {
 
 * {
   box-sizing: border-box;
+  outline-color: rgb(249, 249, 249);
 }

@@ -1,7 +1,24 @@
+import { useContext } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import { GlobalContext } from "../context";
+import { EDIT_POST } from "../sanityFunctions";
 
 export default function Home() {
+  const { text, setText } = useContext(GlobalContext);
+
+  const handleChange = (event) => {
+    setText(() => event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      await EDIT_POST(text);
+      event.target.value = "";
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -10,7 +27,16 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Sanity HTTP</h1>
+        <h1 className={styles.title}>sanity http</h1>
+        <form action="">
+          <input
+            className={styles.input}
+            type="text"
+            onChange={handleChange}
+            onKeyPress={handleSubmit}
+          />
+        </form>
+        <h3>{text}</h3>
       </main>
 
       <footer className={styles.footer}>
